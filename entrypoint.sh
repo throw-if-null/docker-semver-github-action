@@ -35,6 +35,10 @@ function main() {
   docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
   
+  echo "::debug file=entrypoint.sh::Starting docker push ${DOCKER_LATEST}"
+  docker push ${DOCKER_LATEST}
+  echo "::debug file=entrypoint.sh::Finished pushing ${DOCKER_LATEST}"
+  
   IMAGE_ID="$(docker images -q ${DOCKER_LATEST})"
   echo "::debug file=entrypoint.sh::Image Id: ${IMAGE_ID}"
   
@@ -46,11 +50,11 @@ function main() {
   
   VERSION="$(cat version)"
   echo "::debug file=entrypoint.sh::Version: $VERSION"
-
-  echo "::debug file=entrypoint.sh::Starting docker push ${DOCKER_LATEST}"
-  docker push ${DOCKER_LATEST}
-  echo "::debug file=entrypoint.sh::Finished pushing ${DOCKER_LATEST}"
-
+  
+  if [ -z "${VERSION}" ]; then
+	INPUT_SEMVER=$VERSION
+  fi;
+  
   if [ -z "${INPUT_SEMVER}" ]; then
     INPUT_SEMVER="latest"
   fi;
