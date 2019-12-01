@@ -35,8 +35,10 @@ function main() {
   docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
 
-  docker run ${DOCKER_LATEST}
-  VERSION="$(docker exec -it cat VERSION)"
+  CONTAINER_ID="$(docker create ${DOCKER_LATEST})"
+  docker cp $CONTAINER_ID:VERSION ./version
+  docker rm $CONTAINER_ID
+  VERSION="$(cat version)"
   docker stop ${DOCKER_LATEST}
   docker rm ${DOCKER_LATEST}
   
