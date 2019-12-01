@@ -35,6 +35,13 @@ function main() {
   docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
 
+  docker run ${DOCKER_LATEST}
+  VERSION="$(docker exec -it cat VERSION)"
+  docker stop ${DOCKER_LATEST}
+  docker rm ${DOCKER_LATEST}
+  
+  echo "::debug file=entrypoint.sh::Version: $VERSION"
+
   echo "::debug file=entrypoint.sh::Starting docker push ${DOCKER_LATEST}"
   docker push ${DOCKER_LATEST}
   echo "::debug file=entrypoint.sh::Finished pushing ${DOCKER_LATEST}"
