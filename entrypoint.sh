@@ -29,34 +29,35 @@ function main() {
     CONTEXT="${INPUT_CONTEXT}"
   fi
 
+  if [ -z "${INPUT_SEMVER}" ]; then
+    INPUT_SEMVER="latest"
+  fi;
+
   DOCKER_LATEST="${INPUT_NAME}:latest"
 
   echo "::debug file=entrypoint.sh::Starting docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}"
   docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
-  
+
   echo "::debug file=entrypoint.sh::Starting docker push ${DOCKER_LATEST}"
   docker push ${DOCKER_LATEST}
   echo "::debug file=entrypoint.sh::Finished pushing ${DOCKER_LATEST}"
-  
+
   IMAGE_ID="$(docker images -q ${DOCKER_LATEST})"
   echo "::debug file=entrypoint.sh::Image Id: ${IMAGE_ID}"
-  
+
   CONTAINER_ID="$(docker create ${IMAGE_ID})"
   echo "::debug file=entrypoint.sh::Container Id: ${CONTAINER_ID}"
-  
+
   docker cp $CONTAINER_ID:VERSION ./version
   docker rm $CONTAINER_ID
-  
+
   VERSION="$(cat version)"
   echo "::debug file=entrypoint.sh::Version: $VERSION"
-  
+
   if [ -z "${VERSION}" ]; then
-	INPUT_SEMVER=$VERSION
-  fi;
-  
-  if [ -z "${INPUT_SEMVER}" ]; then
-    INPUT_SEMVER="latest"
+	INPUT_SEMVER="${VERSION}"
+	echo "::debug: file=entrypoint.sh::Version overridden with: ${VERSION}"
   fi;
 
   if [ "${INPUT_SEMVER}" = "latest" ]; then
