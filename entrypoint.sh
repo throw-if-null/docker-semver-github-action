@@ -32,17 +32,19 @@ function main() {
   DOCKER_LATEST="${INPUT_NAME}:latest"
 
   echo "::debug file=entrypoint.sh::Starting docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}"
-  BUILD_RESULT="$(docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT})"
-  echo "::debug file=entrypoint.sh::Build result: ${BUILD_RESULT}"
+  docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
-
-  CONTAINER_ID="$(docker create ${DOCKER_LATEST})"
+  
+  IMAGE_ID="$(docker images -q ${DOCKER_LATEST})"
+  echo "::debug file=entrypoint.sh::Image Id: ${IMAGE_ID}"
+  
+  CONTAINER_ID="$(docker create ${IMAGE_ID})"
+  echo "::debug file=entrypoint.sh::Container Id: ${CONTAINER_ID}"
+  
   docker cp $CONTAINER_ID:VERSION ./version
   docker rm $CONTAINER_ID
-  VERSION="$(cat version)"
-  docker stop ${DOCKER_LATEST}
-  docker rm ${DOCKER_LATEST}
   
+  VERSION="$(cat version)"
   echo "::debug file=entrypoint.sh::Version: $VERSION"
 
   echo "::debug file=entrypoint.sh::Starting docker push ${DOCKER_LATEST}"
