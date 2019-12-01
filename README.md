@@ -1,4 +1,4 @@
-# Publishes docker containers
+# Info
 [![Actions Status](https://github.com/mirzamerdovic/docker-semver-github-action/workflows/Test/badge.svg)](https://github.com/mirzamerdovic/docker-semver-github-action/actions)
 [![Actions Status](https://github.com/mirzamerdovic/docker-semver-github-action/workflows/Integration%20Test/badge.svg)](https://github.com/mirzamerdovic/docker-semver-github-action/actions)
 
@@ -25,11 +25,8 @@ it will pul the version _1.4.0_ although there is a more recent release (_1.4.2_
 
 This might not be useful to everyone but it does suite my needs.
 
-I need to say a big **thank you** to [elghor](https://github.com/elgohr) who made [Publish-Docker-Github-Action](https://github.com/elgohr/Publish-Docker-Github-Action) that I forked and built this one from. He also has some other useful actions that you might one to check out.
-
 ## Usage
 
-## Example pipeline
 ```yaml
 name: Publish Docker
 on: [push]
@@ -61,7 +58,7 @@ Optional:
 `context` when you would like to change the Docker build context.
 `buildargs` when you want to pass a list of environment variables as [build-args](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg). Identifiers are separated by comma.
 
-## Output
+### Output
 
 `tag` is the tag, which was pushed  
 
@@ -83,3 +80,6 @@ If you think that all this is bollocks your build will still work without adding
 I have no support for properly tagging images built from branches or PRs one would expect to be able to just specify 1.4.5 and when you are pushing 
 an image from a branch to get a tag: 1.4.5-mybranch same goes for PR
 Current workaround for that is that you specify the suffix yourself.
+
+## Credits
+I need to say a big **thank you** to [elghor](https://github.com/elgohr) who made [Publish-Docker-Github-Action](https://github.com/elgohr/Publish-Docker-Github-Action) that I forked and built this one from. He also has some other useful actions that you might one to check out.
