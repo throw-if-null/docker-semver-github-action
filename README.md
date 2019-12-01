@@ -77,9 +77,10 @@ If you have done all this the action will extract the _VERSION_ file and read th
 If you think that all this is bollocks your build will still work without adding the _VERSION_ file.
 
 ## What's missing?
-I have no support for properly tagging images built from branches or PRs one would expect to be able to just specify 1.4.5 and when you are pushing 
+* I have no support for properly tagging images built from branches or PRs one would expect to be able to just specify 1.4.5 and when you are pushing 
 an image from a branch to get a tag: 1.4.5-mybranch same goes for PR
 Current workaround for that is that you specify the suffix yourself.
+* More tests
 
 ## Credits
 I need to say a big **thank you** to [elghor](https://github.com/elgohr) who made [Publish-Docker-Github-Action](https://github.com/elgohr/Publish-Docker-Github-Action) that I forked and built this one from. He also has some other useful actions that you might one to check out.
