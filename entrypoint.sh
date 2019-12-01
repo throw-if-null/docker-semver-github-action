@@ -55,7 +55,7 @@ function main() {
   VERSION="$(cat version)"
   echo "::debug file=entrypoint.sh::Version: $VERSION"
 
-  if [ -z "${VERSION}" ]; then
+  if [ "${VERSION}" ]; then
 	INPUT_SEMVER="${VERSION}"
 	echo "::debug: file=entrypoint.sh::Version overridden with: ${VERSION}"
   fi;
