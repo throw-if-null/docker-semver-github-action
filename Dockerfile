@@ -3,6 +3,8 @@ LABEL "repository"="https://github.com/MirzaMerdovic/Publish-Docker-Github-Actio
 LABEL "maintainer"="Mirza Merdovic"
 
 ADD entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 
 FROM runtime as testEnv
