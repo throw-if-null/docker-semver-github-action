@@ -28,7 +28,7 @@ This might not be useful to everyone but it does suite my needs.
 ## Usage
 
 ```yaml
-name: Publish Docker
+name: Docker SemVer
 on: [push]
 jobs:
   build:
