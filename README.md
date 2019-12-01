@@ -49,12 +49,12 @@ jobs:
 
 ### Arguments
 
-Required:
+Required:  
 `name` is the name of the image you would like to push  
 `username` the login username for the registry  
 `password` the login password for the registry  
 
-Optional:
+Optional:  
 `semver`: the tag name e.g. 1.2.3 (if ommited latest will be used as tag)
 `dockerfile`: when you would like to explicitly build a Dockerfile
 `workdir` if you need to change the work directory 
@@ -64,6 +64,20 @@ Optional:
 ## Output
 
 `tag` is the tag, which was pushed  
+
+## Automatic versions via VERSION file
+Action also supports a way of automatic version using the VERSION file.
+
+VERSION file is a simple text file that contains the version number for example:  
+```1.4.12```
+
+The action will try to extract the file from built image, so if you want to use it you will need to add it as a part of your repository and your Dockerfile.  
+Let's imagine that you have a _VERSION_ file in the same folder as the _Dockerfile_. In the _Dockerfile_ you'd need to add a line:  
+```ADD VERSION .```  
+so the _VERSION_ file gets copied.  
+
+If you have done all this the action will extract the _VERSION_ file and read the version value that will be used as a tag for your image.  
+If you think that all this is bollocks your build will still work without adding the _VERSION_ file.
 
 ## What's missing?
 I have no support for properly tagging images built from branches or PRs one would expect to be able to just specify 1.4.5 and when you are pushing 
