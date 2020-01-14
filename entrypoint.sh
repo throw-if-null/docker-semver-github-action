@@ -35,6 +35,7 @@ function main() {
 
   DOCKER_LATEST="${INPUT_NAME}:latest"
 
+  echo "::debug file=entrypoint.sh::Work directory: ${PWD}"
   echo "::debug file=entrypoint.sh::Starting docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}"
   docker build $BUILDPARAMS -t ${DOCKER_LATEST} ${CONTEXT}
   echo "::debug file=entrypoint.sh::Finished building ${DOCKER_LATEST}"
