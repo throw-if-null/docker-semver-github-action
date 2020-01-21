@@ -1,6 +1,7 @@
 # Info
 [![Actions Status](https://github.com/mirzamerdovic/docker-semver-github-action/workflows/Test/badge.svg)](https://github.com/mirzamerdovic/docker-semver-github-action/actions)
 [![Actions Status](https://github.com/mirzamerdovic/docker-semver-github-action/workflows/Integration%20Test/badge.svg)](https://github.com/mirzamerdovic/docker-semver-github-action/actions)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mirzamerdovic/publish-docker-github-action)](https://hub.docker.com/r/mirzamerdovic/publish-docker-github-action)
 
 This Action for [Docker](https://www.docker.com/) uses the [SemVer](https://semver.org/) version for image tagging.  
 That means that if you are pushing an image:
